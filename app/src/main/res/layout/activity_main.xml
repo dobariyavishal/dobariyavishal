@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.app.weatherapp.ui.main.MainViewModel" />
+
+        <variable
+            name="data"
+            type="com.app.weatherapp.data.ListData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        tools:context=".ui.main.MainActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clWeather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_10"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCityName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@{String.format(@string/city_country,data.name,data.sys.country)}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"
+                app:layout_constraintEnd_toStartOf="@+id/ivRefresh"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="London, GB" />
+
+            <ImageView
+                android:id="@+id/ivRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5"
+                android:src="@drawable/ic_refresh"
+                app:layout_constraintBottom_toBottomOf="@+id/tvCityName"
+                app:layout_constraintEnd_toStartOf="@+id/ivSearch"
+                app:layout_constraintTop_toTopOf="@+id/tvCityName" />
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5"
+                android:src="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="@+id/tvCityName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvCityName" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/tvCityName"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/ivWeather"
+                android:layout_width="@dimen/size_70"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_10"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTemperature" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTemperature"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_30"
+                app:layout_constraintEnd_toStartOf="@+id/ivWeather"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchView"
+                tools:text="4.7 C" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvWeather"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@{data.weather[0].description}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_25"
+                app:layout_constraintEnd_toEndOf="@+id/tvTemperature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTemperature"
+                tools:text="clouds ,broken clouds" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvWind"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@{String.format(@string/wind,data.wind.speed)}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"
+                app:layout_constraintEnd_toEndOf="@+id/tvTemperature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvWeather"
+                tools:text="Wind: 4.6 m/s" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@{String.format(@string/pressure,data.main.pressure)}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"
+                app:layout_constraintEnd_toEndOf="@+id/tvTemperature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvWind"
+                tools:text="Pressure: 1000.0 hpa" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvHumidity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@{String.format(@string/humidity,data.main.humidity)}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"
+                app:layout_constraintEnd_toEndOf="@+id/tvTemperature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPressure"
+                tools:text="Humidity: 100 %" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSunrise"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/tvTemperature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHumidity"
+                tools:text="Sunrise: 08:42" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSunset"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/tvTemperature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSunrise"
+                tools:text="Sunset: 08:42" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvUvIndex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/tvTemperature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSunset"
+                tools:text="Uv Index: Low" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@color/colorBackgroundHistory"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/padding_10"
+            android:text="@string/weather_history"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clWeather" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHistory"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorBackgroundHistory"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHistory"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_weather_history" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.app.weatherapp.data.ListData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackgroundHistory"
+        android:padding="@dimen/padding_10">
+
+        <ImageView
+            android:id="@+id/ivWeather"
+            android:layout_width="@dimen/size_40"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintEnd_toEndOf="@+id/tvCountry"
+            app:layout_constraintStart_toStartOf="@+id/tvCountry"
+            app:layout_constraintTop_toTopOf="@+id/tvDate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_15"
+            app:layout_constraintEnd_toEndOf="@+id/tvCountry"
+            app:layout_constraintStart_toStartOf="@+id/tvCountry"
+            app:layout_constraintTop_toBottomOf="@+id/ivWeather"
+            tools:text="1.4 C" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCountry"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@drawable/bg_country"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:text="@{data.sys.country}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTemperature"
+            tools:text="London" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_15"
+            app:layout_constraintEnd_toStartOf="@+id/tvCountry"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Wed 20.5.2022" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvWind"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/wind,data.wind.speed)}"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate"
+            tools:text="Wind: 4.6 m/s" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPressure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/pressure,data.main.pressure)}"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWind"
+            tools:text="Pressure: 1000.0 hpa" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvHumidity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/humidity,data.main.humidity)}"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/text_size_15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPressure"
+            tools:text="Humidity: 100 %" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
